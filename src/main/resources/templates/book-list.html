@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Book List</title>
+</head>
+<body>
+<h1>Books</h1>
+<ul>
+  <li th:each="book : ${books}">
+    Book name : " <span th:text="${book.getName()}"></span> " <br>
+    author : " <span th:text="${book.getAuthor()}"></span> " <br>
+    Rent Status :  <span th:text="${book.isRent() == false ? 'Can Rent' : 'Already Rented'}"></span> <br>
+  </li>
+</ul>
+<!--<a href="/books" th:href="@{/books}">Back to Books</a>-->
+</body>
+</html>

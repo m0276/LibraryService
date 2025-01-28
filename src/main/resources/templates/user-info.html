@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User</title>
+</head>
+<body>
+<h1>User Info</h1>
+<ul>
+  <li th:each="user : ${user}">
+    User name : " <span th:text="${user.getUserName()}"></span> " <br>
+    User nickName : " <span th:text="${user.getNickName()}"></span> " <br>
+    Created time :  <span th:text="${user.getCreateUserTime()}"></span> <br>
+    Rent Status : <span th:text="${user.isCanRent()}"></span><br>
+  </li>
+</ul>
+
+</body>
+</html>
