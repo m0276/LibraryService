@@ -16,14 +16,19 @@ public class User {
 
     @Column
     String userName;
+
     @Column
     Date createUserTime;
+
     @Column(unique = true)
     String nickName;
+
     @Column
     Date startRent;
+
     @Column
     Date deadlineRent;
+
     @Column
     boolean canRent = true;
 

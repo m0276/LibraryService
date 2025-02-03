@@ -18,4 +18,8 @@ public class ModifyUserService {
     public void modifyUser(UserDto user){
         repository.save(repository.findByNickName(user.getNickName()).get());
     }
+
+    public void changeUserName(String newName, String nickName){
+
+    }
 }

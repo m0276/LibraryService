@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.Date;
 
 @Transactional
@@ -46,13 +47,17 @@ public class RentService {
         if(!getUserService.userCanRent(user)) return false;
 
         bookFound.setRent(true);
+        Date date = new Date();
+        bookFound.getUser().setStartRent(date);
+        bookFound.getUser().setDeadlineRent(Date.from(date.toInstant().plus(Duration.ofDays(14))));
+        modifyUserService.modifyUser(user);
 
         repository.save(bookFound);
 
         return true;
     }
 
-    public boolean returned(BookDto bookDto, UserDto user){
+    public boolean returned(BookDto bookDto){
         Book bookFound = repository.findAll().stream()
                 .filter(book -> book.getAuthor().equals(bookDto.getAuthor()))
                 .filter(book -> book.getName().equals(bookDto.getName()))
@@ -67,6 +72,10 @@ public class RentService {
         if (!bookFound.isRent()) {
             return false;
         }
+
+        UserDto user = new UserDto();
+        user.setName(bookFound.getUser().getUserName());
+        user.setNickName(bookFound.getUser().getNickName());
 
         if(getUserService.deadLineOfUser(user).compareTo(new Date()) > 0){
             bookFound.getUser().setCanRent(false);

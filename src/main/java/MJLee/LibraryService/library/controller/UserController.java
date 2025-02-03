@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/library/user")
 public class UserController {
     CreateUserService createUserService;
     DeleteUserService deleteUserService;
@@ -26,7 +26,12 @@ public class UserController {
 
     @GetMapping("/{userNickName}")
     public ModelAndView showUserInfo(Model model, @PathVariable String userNickName){
-        User user = getUserService.findByNickName(userNickName).get();
+        User user;
+        if(getUserService.findByNickName(userNickName).isPresent()){
+            user = getUserService.findByNickName(userNickName).get();
+        }
+        else return null;
+
         model.addAttribute("user",user);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("user-info");
@@ -43,11 +48,7 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable String userNickName){
         if(getUserService.findByNickName(userNickName).isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-        UserDto user = new UserDto();
-        user.setName(getUserService.findByNickName(userNickName).get().getUserName());
-        user.setNickName(userNickName);
-
-        if(deleteUserService.deleteUser(user)) return ResponseEntity.status(HttpStatus.OK).build();
+        if(deleteUserService.deleteUser(userNickName)) return ResponseEntity.status(HttpStatus.OK).build();
         else return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }

@@ -14,10 +14,12 @@ public class DeleteUserService {
         this.repository = repository;
     }
 
-    public boolean deleteUser(UserDto userDto){
-        if(repository.findByNickName(userDto.getNickName()).isEmpty()) return false;
+    public boolean deleteUser(String nickName){
+        if(repository.findByNickName(nickName).isEmpty()) return false;
         else {
-            return repository.deleteByNickName(userDto.getNickName());
+            repository.deleteByNickName(nickName);
         }
+
+        return true;
     }
 }

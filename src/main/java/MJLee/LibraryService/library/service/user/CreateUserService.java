@@ -21,16 +21,12 @@ public class CreateUserService {
 
     public void createUser(UserDto userDto){
         User user = new User();
-        Date date = new Date();
         user.setUserName(userDto.getName());
         user.setNickName(userDto.getNickName());
-        user.setCreateUserTime(date);
-        user.setDeadlineRent(Date.from(date.toInstant().plus(Duration.ofDays(14))));
+        user.setCreateUserTime(new Date());
 
         if(repository.findByNickName(userDto.getNickName()).isEmpty()){
             repository.save(user);
         }
     }
-
-
 }

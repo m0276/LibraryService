@@ -2,8 +2,10 @@ package MJLee.LibraryService.library.controller;
 
 
 import MJLee.LibraryService.library.dto.BookDto;
+import MJLee.LibraryService.library.dto.RentDto;
 import MJLee.LibraryService.library.dto.UserDto;
 import MJLee.LibraryService.library.entity.Book;
+import MJLee.LibraryService.library.entity.User;
 import MJLee.LibraryService.library.service.book.CreateService;
 import MJLee.LibraryService.library.service.book.DeleteService;
 import MJLee.LibraryService.library.service.book.RentService;
@@ -86,8 +88,16 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/status/1")
-    public ResponseEntity<Void> rentStatus(@RequestBody BookDto bookDto, @RequestBody UserDto userDto){
+    @PutMapping("/status/out")
+    public ResponseEntity<Void> rentStatus(@RequestBody RentDto rentDto){
+        BookDto bookDto = new BookDto();
+        bookDto.setName(rentDto.getBookName());
+        bookDto.setAuthor(rentDto.getAuthor());
+
+        UserDto userDto = new UserDto();
+        userDto.setName(rentDto.getUserName());
+        userDto.setNickName(rentDto.getUserNickName());
+
         if (rentService.rent(bookDto,userDto)) {
             return ResponseEntity.status(HttpStatus.OK).build();
         } else {
@@ -95,9 +105,9 @@ public class BookController {
         }
     }
 
-    @PutMapping("/status/0")
-    public ResponseEntity<Void> rentReturn(@RequestBody BookDto bookDto, @RequestBody UserDto userDto){
-        if (rentService.returned(bookDto, userDto)) {
+    @PutMapping("/status/in")
+    public ResponseEntity<Void> rentReturn(@RequestBody BookDto bookDto){
+        if (rentService.returned(bookDto)) {
             return ResponseEntity.status(HttpStatus.OK).build();
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
