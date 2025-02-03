@@ -4,6 +4,7 @@ package MJLee.LibraryService.library.entity;
 import jakarta.persistence.*;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +21,12 @@ public class Book {
 
     @Column
     boolean rent;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column
+    Date startRent;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column
+    Date deadlineRent;
 
     @ManyToOne
     @JoinColumn(name = "user")
@@ -63,5 +70,32 @@ public class Book {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getStartRent() {
+        return startRent;
+    }
+
+    public void setStartRent(Date startRent) {
+        this.startRent = startRent;
+    }
+
+    public Date getDeadlineRent() {
+        return deadlineRent;
+    }
+
+    public void setDeadlineRent(Date deadlineRent) {
+        this.deadlineRent = deadlineRent;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", rent=" + rent +
+                ", user=" + user +
+                '}';
     }
 }

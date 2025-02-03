@@ -17,6 +17,7 @@ public class User {
     @Column
     String userName;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column
     Date createUserTime;
 
@@ -24,10 +25,10 @@ public class User {
     String nickName;
 
     @Column
-    Date startRent;
+    Long rentedBooks = 0L;
 
     @Column
-    Date deadlineRent;
+    Long delayDays = 0L;
 
     @Column
     boolean canRent = true;
@@ -48,22 +49,6 @@ public class User {
         this.createUserTime = createUserTime;
     }
 
-    public Date getStartRent() {
-        return startRent;
-    }
-
-    public void setStartRent(Date startRent) {
-        this.startRent = startRent;
-    }
-
-    public Date getDeadlineRent() {
-        return deadlineRent;
-    }
-
-    public void setDeadlineRent(Date deadlineRent) {
-        this.deadlineRent = deadlineRent;
-    }
-
     public String getNickName() {
         return nickName;
     }
@@ -78,5 +63,21 @@ public class User {
 
     public void setCanRent(boolean canRent) {
         this.canRent = canRent;
+    }
+
+    public Long getRentedBooks() {
+        return rentedBooks;
+    }
+
+    public void setRentedBooks(Long rentedBooks) {
+        this.rentedBooks = rentedBooks;
+    }
+
+    public Long getDelayDays() {
+        return delayDays;
+    }
+
+    public void setDelayDays(Long delayDays) {
+        this.delayDays = delayDays;
     }
 }

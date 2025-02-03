@@ -16,10 +16,8 @@ public class DeleteUserService {
 
     public boolean deleteUser(String nickName){
         if(repository.findByNickName(nickName).isEmpty()) return false;
-        else {
-            repository.deleteByNickName(nickName);
-        }
 
+        repository.deleteByNickName(nickName);
         return true;
     }
 }

@@ -44,10 +44,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/{userNickName}")
+    @DeleteMapping("/{userNickName}") // FixMe
     public ResponseEntity<Void> deleteUser(@PathVariable String userNickName){
-        if(getUserService.findByNickName(userNickName).isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-
         if(deleteUserService.deleteUser(userNickName)) return ResponseEntity.status(HttpStatus.OK).build();
         else return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }

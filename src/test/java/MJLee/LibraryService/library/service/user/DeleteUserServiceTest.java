@@ -1,5 +1,6 @@
 package MJLee.LibraryService.library.service.user;
 
+import MJLee.LibraryService.library.dto.UserDto;
 import MJLee.LibraryService.library.entity.User;
 import MJLee.LibraryService.library.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -17,6 +18,9 @@ public class DeleteUserServiceTest {
     @Autowired
     UserRepository repository;
 
+    @Autowired
+    DeleteUserService deleteUserService;
+
     @Transactional
     @Test
     void deleteUser() {
@@ -28,10 +32,7 @@ public class DeleteUserServiceTest {
             repository.save(user);
         }
 
-        if(repository.findByNickName(user.getNickName()).isEmpty()) System.out.println("false");
-        else {
-            repository.deleteByNickName(user.getNickName());
-        }
+        deleteUserService.deleteUser("nickname1");
 
         System.out.println("true");;
     }

@@ -32,7 +32,7 @@ public class ShowService {
     }
 
     public List<Book> showBooksByName(String name) {
-        return repository.findByAuthor(name);
+        return repository.findByName(name);
     }
 
     public Book showBookNameAndAuthor(String name, String author){

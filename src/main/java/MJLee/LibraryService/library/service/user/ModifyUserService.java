@@ -16,7 +16,7 @@ public class ModifyUserService {
     }
 
     public void modifyUser(UserDto user){
-        repository.save(repository.findByNickName(user.getNickName()).get());
+        if(repository.findByNickName(user.getNickName()).isPresent()) repository.save(repository.findByNickName(user.getNickName()).get());
     }
 
     public void changeUserName(String newName, String nickName){
