@@ -4,6 +4,7 @@ import MJLee.LibraryService.library.dto.UserDto;
 import MJLee.LibraryService.library.entity.User;
 import MJLee.LibraryService.library.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.DateUtils;
 
@@ -15,6 +16,7 @@ import java.util.Date;
 public class CreateUserService {
     UserRepository repository;
 
+    @Autowired
     public CreateUserService(UserRepository repository) {
         this.repository = repository;
     }

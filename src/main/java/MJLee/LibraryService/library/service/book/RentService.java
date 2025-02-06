@@ -93,6 +93,7 @@ public class RentService {
         bookFound.setRent(false);
         bookFound.setStartRent(null);
         bookFound.setDeadlineRent(null);
+        bookFound.setUser(null);
         repository.save(bookFound);
 
         return true;
